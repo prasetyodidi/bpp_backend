@@ -10,6 +10,7 @@ from rest_framework.authtoken.models import Token
 
 from .serializers import UserSerializer
 
+
 @api_view(['POST'])
 def signup(request):
     serializer = UserSerializer(data=request.data)
@@ -22,6 +23,7 @@ def signup(request):
         return Response({'token': token.key, 'user': serializer.data})
     return Response(serializer.errors, status=status.HTTP_200_OK)
 
+
 @api_view(['POST'])
 def login(request):
     user = get_object_or_404(User, username=request.data['username'])
@@ -30,6 +32,7 @@ def login(request):
     token, created = Token.objects.get_or_create(user=user)
     serializer = UserSerializer(user)
     return Response({'token': token.key, 'user': serializer.data})
+
 
 @api_view(['GET'])
 @authentication_classes([SessionAuthentication, TokenAuthentication])
