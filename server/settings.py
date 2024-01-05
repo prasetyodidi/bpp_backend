@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-q1-xt8(+yr^6iye@sa3@miqn&(#-be96ild1s!o)wlmwqrzd3-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,9 +43,12 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # 'corsheaders',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    # 'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -126,3 +129,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+MQTT_SERVER = 'broker.emqx.io'
+MQTT_PORT = 1883
+MQTT_KEEPALIVE = 60
+MQTT_USER = 'emqx'
+MQTT_PASSWORD = 'public'
