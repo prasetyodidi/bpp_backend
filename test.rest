@@ -1,17 +1,73 @@
-POST http://127.0.0.1:8000/signup 
+### Signup
+POST http://127.0.0.1:8000/signup
 Content-Type: application/json
 
 { "username": "adam", "password": "Pass1234!", "email": "adam@mail.com" }
 
-###
-
+### Login
 POST http://127.0.0.1:8000/login 
 Content-Type: application/json
 
-{ "username": "adam", "password": "Pass1234!" }
+//{ "username": "prast", "password": "BYgWCM" }
+{ "username": "setyo", "password": "b6Scsy" }
 
-###
-
-GET http://127.0.0.1:8000/test_token 
+### Test Token
+GET http://127.0.0.1:8000/test_token
 Content-Type: application/json
-Authorization: token xxx
+Authorization: Token 4b4b335df0a333f56343d0ad760e45a591bdab69
+
+### Create User and Group
+POST http://127.0.0.1:8000/chat/create-user-and-group
+Content-Type: application/json
+
+{
+    "username": "qwerty",
+    "groupName": "Bhs. Inggris"
+}
+
+### Create User and Join Group
+POST http://127.0.0.1:8000/chat/create-user-and-join-group
+Content-Type: application/json
+
+{
+    "username": "ucup123",
+    "groupCode": "WmdbQH"
+}
+
+### List Group
+GET http://127.0.0.1:8000/chat/groups
+Content-Type: application/json
+Authorization: Token 4b4b335df0a333f56343d0ad760e45a591bdab69
+
+### Get Messages By Group Id
+GET http://127.0.0.1:8000/chat/groups/21
+Content-Type: application/json
+Authorization: Token 4b4b335df0a333f56343d0ad760e45a591bdab69
+
+### Join Group
+POST http://127.0.0.1:8000/chat/groups/join
+Content-Type: application/json
+Authorization: Token 4b4b335df0a333f56343d0ad760e45a591bdab69
+
+{
+    "group_code": "WmdbQH"
+}
+
+### Add Message
+POST http://127.0.0.1:8000/chat/messages
+Content-Type: application/json
+Authorization: Token 4b4b335df0a333f56343d0ad760e45a591bdab69
+
+{
+    "groupId": 21,
+    "text": "haiii"
+}
+
+### Change Group Time Period
+PUT http://127.0.0.1:8000/chat/groups/21/change-time-period
+Content-Type: application/json
+Authorization: Token 4b4b335df0a333f56343d0ad760e45a591bdab69
+
+{
+    "activePeriodId": 2
+}
