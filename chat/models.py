@@ -10,9 +10,16 @@ class ActivePeriod(models.Model):
 
 
 class Group(models.Model):
-    id = models.UUIDField().primary_key
-    owner = models.ForeignKey(User, related_name='group_owner', on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=250)
+    code = models.CharField(max_length=20, unique=True)
     active_period = models.ForeignKey(ActivePeriod, on_delete=models.CASCADE)
     created_at = models.IntegerField()
-    members = models.ManyToManyField(User)
+    members = models.ManyToManyField(User, related_name='members')
+
+
+class Message(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    message = models.TextField()
+
