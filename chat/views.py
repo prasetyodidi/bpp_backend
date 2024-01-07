@@ -172,7 +172,7 @@ def add_message(request):
         if status == 0:
             print(f"Send `{json_message}` to topic `{topic}`")
         else:
-            print(f"Failed to send message to topic {topic}")
+            print(f"Failed to send {json_message} to topic {topic}")
         msg_count += 1
         if msg_count > 5:
             break
