@@ -16,23 +16,23 @@ def on_message(mqtt_client, userdata, msg):
     print(f'Received message on topic: {msg.topic} with payload: {msg.payload}')
     
 def on_disconnect(client, userdata, rc):
-    print.info("Disconnected with result code: %s", rc)
+    print("Disconnected with result code: %s", rc)
     reconnect_count, reconnect_delay = 0, settings.MQTT_FIRST_RECONNECT_DELAY
     while reconnect_count < settings.MQTT_MAX_RECONNECT_COUNT:
-        print.info("Reconnecting in %d seconds...", reconnect_delay)
+        print("Reconnecting in %d seconds...", reconnect_delay)
         time.sleep(reconnect_delay)
 
         try:
             client.reconnect()
-            print.info("Reconnected successfully!")
+            print("Reconnected successfully!")
             return
         except Exception as err:
-            print.error("%s. Reconnect failed. Retrying...", err)
+            print("%s. Reconnect failed. Retrying...", err)
 
         reconnect_delay *= settings.MQTT_RECONNECT_RATE
         reconnect_delay = min(reconnect_delay, settings.MQTT_MAX_RECONNECT_DELAY)
         reconnect_count += 1
-    print.info("Reconnect failed after %s attempts. Exiting...", reconnect_count)    
+    print("Reconnect failed after %s attempts. Exiting...", reconnect_count)    
 
 client = mqtt.Client()
 client.on_connect = on_connect
