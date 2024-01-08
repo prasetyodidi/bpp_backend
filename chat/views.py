@@ -13,6 +13,7 @@ from django.shortcuts import get_object_or_404
 
 from chat.mqtt import client as mqtt_client
 import json
+from django.utils import timezone
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -116,6 +117,7 @@ def messages_by_group_id(request, group_id):
             "id": message.id,
             "message": message.message,
             "group": 21,
+            "createdAt": message.created_at.strftime("%H:%M"),
             'owner': {
                 'username': message.owner.username,
             }
@@ -150,13 +152,14 @@ def add_message(request):
     user = request.user
     group = get_object_or_404(Group.objects.filter(id=group_id))
 
-    message = Message.objects.create(message=text, owner=user, group=group)
+    message = Message.objects.create(message=text, owner=user, group=group, created_at=timezone.now() + timezone.timedelta(hours=7))
     message.save()
     
     mqtt_message = {
         "key": message.id,
         "msg": text,
-        "username": user.username
+        "username": user.username,
+        "createdAt": message.created_at.strftime("%H:%M"),
     }
     
     json_message = json.dumps(mqtt_message)
